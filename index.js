@@ -47,7 +47,11 @@ module.exports = {
     // n.b. this can be removed once ember-cli better supports nested addons.
     //   (see https://github.com/gdub22/ember-cli-less/issues/36)
     if (!app.options && app.app && app.app.options) {
+      var depth = 0, maxDepth = 16;
+      while (!app.options && depth < maxDepth) {
         app = app.app;
+        depth++;
+      }
     }
 
     var options = (app && app.options && app.options.lessOptions) || {};
